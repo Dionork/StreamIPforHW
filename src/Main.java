@@ -14,5 +14,10 @@ public class Main {
                     Education.values()[new Random().nextInt(Education.values().length)])
             );
         }
+        long minor = persons.stream()
+                .filter(person -> person.getAge() < 18)
+                .count();
+        System.out.println(minor);
+
     }
 }
