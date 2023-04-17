@@ -1,5 +1,8 @@
 package src;
+
 import java.util.*;
+import java.util.stream.Collectors;
+
 public class Main {
     public static void main(String[] args) {
         List<String> names = Arrays.asList("Jack", "Connor", "Harry", "George", "Samuel", "John");
@@ -17,7 +20,19 @@ public class Main {
         long minor = persons.stream()
                 .filter(person -> person.getAge() < 18)
                 .count();
-        System.out.println(minor);
+        //System.out.println(minor);
+        List<String> conscript = persons.stream()
+                .filter(person -> person.getAge() >= 18 && person.getAge() < 27)
+                .map(person -> person.getFamily())
+                .collect(Collectors.toList());
+        List<Person> pplWithHE = persons.stream()
+                .filter(person -> person.getAge() >= 18 && person.getEducation() == Education.HIGHER)
+                .filter(person -> person.getSex() == Sex.MAN && person.getAge() < 65 ||
+                        person.getSex() == Sex.WOMAN && person.getAge() < 60)
+                .sorted(Comparator.comparing(Person::getFamily))
+                .collect(Collectors.toList());
+
+       // System.out.println(pplWithHE);
 
     }
 }
